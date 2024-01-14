@@ -20,6 +20,7 @@ dependencies { // 프로젝트를 개발하며 필요한 기능들의 의존성�
     runtimeOnly 'com.h2database:h2' // 로컬 환경과 테스트 환경에서 사용할 인메모리 데이터 베이스 H2
     compileOnly 'org.projectlombok:lombok:' // 반복 메서드 작성 작업을 줄여주는 롬복
     annotationProcessor 'org.projectlombok:lombok:'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 test {
