@@ -33,7 +33,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests() // 인증, 인가 설정
-                .requestMatchers("/login","/singup","/user").permitAll() // 특정 요청과 일치하는 url에 대한 엑세스 설정
+                .requestMatchers("/login","/signup","/user").permitAll() // 특정 요청과 일치하는 url에 대한 엑세스 설정
                 .anyRequest().authenticated()// requestMatchers 설정한 url 외의 요청에 대한 설정 | authenticated = 인증필요
                 .and()
                 .formLogin() // 폼 기반 로그인
