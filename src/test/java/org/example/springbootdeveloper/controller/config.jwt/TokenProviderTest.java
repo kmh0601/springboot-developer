@@ -1,16 +1,13 @@
 package org.example.springbootdeveloper.controller.config.jwt;
 
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import org.example.springbootdeveloper.config.jwt.JwtProperties;
 import org.example.springbootdeveloper.config.jwt.TokenProvider;
 import org.example.springbootdeveloper.domain.User;
 import org.example.springbootdeveloper.repository.UserRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,17 +33,17 @@ public class TokenProviderTest {
     @DisplayName("generateToken(): 유저 정보와 만료 기간을 전달해 토큰을 만들 수 있다.")
     @Test
     void generateToken() {
-        //given
+        //given - 토큰에 추가할 테스트 유저
         User testUser = userRepository.save(User.builder()
                         .email("user@gmail.com")
                         .password("test")
                         .build());
-        //when
+        //when - 테스트 유저로 토큰을 생성
         String token = tokenProvider.generateToken(testUser, Duration.ofDays(14));
-        //then
+        //then - jjwt라이브러리로 토큰을 복호화해서 id를 추출 및 테스트 유저의 id와 비교
         Long userId = Jwts.parser()
                 .setSigningKey(jwtProperties.getSecretKey())
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody()
                 .get("id", Long.class);
 
@@ -57,8 +54,8 @@ public class TokenProviderTest {
     @DisplayName("validToken(): 만료된 토근인 때에 유효성 검증에 실패한다.")
     @Test
     void validToken_invalidToken() {
-        //given
-        String token = JwtFactory.builder() // expiration을 빌더 패턴에서 다른 값을 넣어줘서 유효성 검사를 실패하게 함
+        //given - jjwt라이브러리를 사용해 토큰을 생성
+        String token = JwtFactory.builder() // expiration을 빌더 패턴에서 만료된 값을 넣어줘서 유효성 검사를 실패하게 함
                 .expiration(new Date(new Date().getTime() - Duration.ofDays(7).toMillis()))
                 .build()
                 .createToken(jwtProperties);

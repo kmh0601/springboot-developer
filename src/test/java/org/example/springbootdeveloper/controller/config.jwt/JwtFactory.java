@@ -19,7 +19,7 @@ public class JwtFactory {
     private Date expiration = new Date(new Date().getTime() + Duration.ofDays(14).toMillis());
     private Map<String, Object> claims = Collections.emptyMap();
 
-    // 빌더 패턴을 이용해 객체를 만들 때 테스트가 필요한 데이터만 선택 -> 유효성 검증시 하나만 다르게 설정해서 실패 테스트 해볼 때 사용~
+    // 빌더 패턴을 이용해 임의의 토큰을 만들 때 테스트가 필요한 데이터만 선택 -> 유효성 검증시 하나만 다르게 설정해서 실패 테스트 해볼 때 사용~
     @Builder
     public JwtFactory(String subject, Date issuedAt, Date expiration, Map<String, Object> claims) {
         this.subject = subject != null ? subject : this.subject;
