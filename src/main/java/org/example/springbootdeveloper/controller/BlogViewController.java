@@ -38,7 +38,7 @@ public class BlogViewController {
         return "article";
     }
 
-    // 생성과 수저은 같은 화면을 공유하고, url에 id가 넘어오느냐 아니냐에 의해 구분된다.
+    // 생성과 수정은 같은 화면을 공유하고, url에 id가 넘어오느냐 아니냐에 의해 구분된다.
     @GetMapping("/new-article")
     public String newArticle(@RequestParam(required = false) Long id, Model model) {
         if (id == null) {

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-public class User implements UserDetails {
+public class User implements UserDetails { // UserDetails를 상속받음 -> 해당 객체는 인증 객체
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
