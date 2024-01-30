@@ -27,10 +27,14 @@ public class User implements UserDetails { // UserDetails를 상속받음 -> 해
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String auth, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Override // 권한 반환
@@ -70,6 +74,13 @@ public class User implements UserDetails { // UserDetails를 상속받음 -> 해
     public boolean isEnabled() {
         // 계정이 사용 가능한지 확인하는 로직
         return true;
+    }
+
+    //사용자 이름 변경
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
     }
 
 }
