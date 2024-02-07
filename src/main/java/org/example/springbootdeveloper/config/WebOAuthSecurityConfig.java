@@ -2,6 +2,7 @@ package org.example.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.springbootdeveloper.config.jwt.TokenProvider;
+import org.example.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import org.example.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import org.example.springbootdeveloper.repository.RefreshTokenRepository;
 import org.example.springbootdeveloper.service.UserService;
@@ -72,7 +73,7 @@ public class WebOAuthSecurityConfig {
     }
 
     @Bean public OAuth2SuccessHandler oAuth2SuccessHandler() {
-        return new OAuth2SucceessHandler(tokenProvider, refreshTokenRepository, OAuth2AuthorizationRequestBasedOnCookieRepository(),
+        return new OAuth2SucceessHandler(tokenProvider, refreshTokenRepository, oAuth2AuthorizationRequestBasedOnCookieRepository(),
                 userService);
     }
 
