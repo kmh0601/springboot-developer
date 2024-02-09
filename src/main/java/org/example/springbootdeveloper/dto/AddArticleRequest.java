@@ -12,10 +12,9 @@ public class AddArticleRequest {
 
     private String title;
     private String content;
-    private String author;
 
     // 빌터 패턴을 사용해 DTO를 엔티티로 만들어주는 메서드이다.
-    public Article toEntity() {
+    public Article toEntity(String author) {
         return Article.builder()
                 .author(author)
                 .title(title)
